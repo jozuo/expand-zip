@@ -20,7 +20,9 @@
     "typescript": "^2.6.1"
   },
   "dependencies": {
+    "@types/underscore": "^1.8.7",
     "mime-types": "^2.1.17",
-    "node-zip": "^1.1.1"
+    "node-zip": "^1.1.1",
+    "underscore": "^1.8.3"
   }
 }

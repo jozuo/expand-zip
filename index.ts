@@ -3,8 +3,10 @@ import * as AWS from 'aws-sdk';
 import * as node_zip from 'node-zip';
 import * as mime from 'mime-types';
 import { ObjectIdentifier } from 'aws-sdk/clients/s3';
+import * as _ from 'underscore';
 
 const DEST_BUCKET = 'cdn.jozuo.work';
+const BULK_SIZE = 1000;
 
 const S3_CONFIG: AWS.S3.Types.ClientConfiguration = {
   endpoint: (process.env.NODE_ENV === 'local' ? 'http://localstack:4572' : undefined),
@@ -31,12 +33,21 @@ async function clearBucket() {
     return;
   }
 
-  await s3.deleteObjects({
-    Bucket: DEST_BUCKET,
-    Delete: {
-      Objects: keys
-    },
-  }).promise();
+  let requestUnit = divide(keys, BULK_SIZE);
+  for (let i = 0; i < requestUnit.length; i++) {
+    await s3.deleteObjects({
+      Bucket: DEST_BUCKET,
+      Delete: {
+        Objects: requestUnit[i]
+      },
+    }).promise();
+  }
+}
+
+function divide(array: any[], size: number): any[] {
+  return _.values(_.groupBy(array, (value: any, index: number) => {
+    return Math.floor(index / size)
+  }));
 }
 
 async function expandZip(srcFile: AWS.S3.GetObjectOutput) {
