@@ -1,17 +1,22 @@
 AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
-Description: |
-  An example Serverless project that uses the AWS SDK to list S3 buckets
-
 Resources:
-  # Place your project resources here (AWS Lambda functions, API Gateway) etc
-
   ExpandZip:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
       Runtime: nodejs6.10
+      Policies: AmazonS3FullAccess
+      Timeout: 45
       Environment:
         Variables:
           NODE_ENV: NODE_ENV
+      Events:
+        ZipUpload:
+          Type: S3
+          Properties:
+            Bucket: !Ref Bucket
+            Events: s3:ObjectCreated:*
+  Bucket:
+    Type: AWS::S3::Bucket

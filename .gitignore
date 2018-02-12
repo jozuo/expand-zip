@@ -63,3 +63,6 @@ typings/
 # js & map file
 *.js
 *.js.map
+
+# sam
+package.yaml
