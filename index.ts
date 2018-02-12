@@ -19,7 +19,7 @@ const s3 = new AWS.S3(S3_CONFIG);
 async function clearBucket() {
   const list = await s3.listObjects({
     Bucket: DEST_BUCKET,
-  }, undefined).promise();
+  }).promise().catch((reason) => { throw Error('S3 list object faild. cause: ' + reason) });
 
   if (!list || !list.Contents) {
     return;
@@ -40,12 +40,12 @@ async function clearBucket() {
       Delete: {
         Objects: requestUnit[i]
       },
-    }).promise();
+    }).promise().catch((reason) => { throw Error('S3 delete objects failed. cause: ' + reason) });
   }
 }
 
 function divide(array: any[], size: number): any[] {
-  return _.values(_.groupBy(array, (value: any, index: number) => {
+  return _.values(_.groupBy(array, (_value: any, index: number) => {
     return Math.floor(index / size)
   }));
 }
@@ -59,22 +59,25 @@ async function expandZip(srcFile: AWS.S3.GetObjectOutput) {
       Key: file.name,
       Body: new Buffer(file.asBinary(), 'binary'),
       ContentType: mime.lookup(file.name) || 'application/octet-stream'
-    }).promise();
+    }).promise().catch((reason: any) => { throw Error('S3 put object failed. cause: ' + reason) });
   }
 }
 
-export async function handler(event: Lambda.S3CreateEvent, context: Lambda.Context) {
+export async function handler(event: Lambda.S3CreateEvent, _context: Lambda.Context, callback: Lambda.Callback) {
   console.log('Received event:');
 
   const bucket = event.Records[0].s3.bucket.name;
   const key = event.Records[0].s3.object.key;
 
-  const srcFile = await s3.getObject({
-    Bucket: bucket,
-    Key: key
-  }).promise();
-  await clearBucket();
-  await expandZip(srcFile);
-
-  context.succeed('Ok');
+  try {
+    const srcFile = await s3.getObject({
+      Bucket: bucket,
+      Key: key
+    }).promise().catch((reason) => { throw Error('S3 get objects failed. cause: ' + reason) });
+    await clearBucket();
+    await expandZip(srcFile);
+    callback(null, 'success');
+  } catch (e) {
+    callback(e);
+  }
 }

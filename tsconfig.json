@@ -9,6 +9,9 @@
     "strict": true,
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "checkJs": true,
     "strictFunctionTypes": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
@@ -21,7 +24,7 @@
     "listFiles": false,
     "stripInternal": true,
     "skipDefaultLibCheck": true,
-    "pretty": true
+    "pretty": true,
   },
   "exclude": [
     "node_modules",
