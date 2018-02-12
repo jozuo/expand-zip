@@ -6,22 +6,20 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "local": "NODE_ENV=local sam local invoke --docker-network localstack_default --env-vars env.json -e s3-event.json",
-    "local-debug": "NODE_ENV=local sam local invoke --docker-network localstack_default --env-vars env.json -e s3-event.json -d 5858"
+    "local": "NODE_ENV=local sam local invoke --docker-network localstack_default -e s3-event.json",
+    "local-debug": "NODE_ENV=local sam local invoke --docker-network localstack_default -e s3-event.json -d 5858"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/aws-lambda": "0.0.21",
+    "@types/aws-lambda": "^0.0.31",
+    "@types/mime-types": "^2.1.0",
     "@types/node": "^8.0.53",
     "aws-sdk": "^2.154.0",
     "typescript": "^2.6.1"
   },
   "dependencies": {
-    "@types/jszip": "^3.1.3",
-    "jszip": "^3.1.5",
-    "jszip-utils": "^0.0.2",
     "mime-types": "^2.1.17",
     "node-zip": "^1.1.1"
   }
