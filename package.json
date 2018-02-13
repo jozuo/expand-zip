@@ -17,11 +17,11 @@
     "@types/aws-lambda": "^0.0.31",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^8.0.53",
+    "@types/underscore": "^1.8.7",
     "aws-sdk": "^2.154.0",
     "typescript": "^2.6.1"
   },
   "dependencies": {
-    "@types/underscore": "^1.8.7",
     "mime-types": "^2.1.17",
     "node-zip": "^1.1.1",
     "underscore": "^1.8.3"

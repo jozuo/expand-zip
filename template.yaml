@@ -8,7 +8,7 @@ Resources:
       Handler: index.handler
       Runtime: nodejs6.10
       Policies: AmazonS3FullAccess
-      Timeout: 45
+      Timeout: 120
       Environment:
         Variables:
           NODE_ENV: NODE_ENV
