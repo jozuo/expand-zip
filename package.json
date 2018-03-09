@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "local": "NODE_ENV=local sam local invoke --docker-network localstack_default -e s3-event.json",
-    "local-debug": "NODE_ENV=local sam local invoke --docker-network localstack_default -e s3-event.json -d 5858",
-    "deploy": "sam package --template-file template.yaml --s3-bucket function.jozuo.work --output-template-file package.yaml; sam deploy --template-file package.yaml --stack-name ExpandZip  --capabilities CAPABILITY_IAM"
+    "local": "NODE_ENV=local DEST_BUCKET=dest.jozuo.work sam local invoke --docker-network localstack_default -e s3-event.json",
+    "local-debug": "NODE_ENV=local DEST_BUCKET=dest.jozuo.work sam local invoke --docker-network localstack_default -e s3-event.json -d 5858",
+    "deploy": "sam package --template-file template.yaml --s3-bucket expand-zip.jozuo.work --output-template-file package.yaml; sam deploy --template-file package.yaml --stack-name expand-zip --capabilities CAPABILITY_IAM"
   },
   "keywords": [],
   "author": "",

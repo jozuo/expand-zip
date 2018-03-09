@@ -109,6 +109,7 @@ $ NODE_ENV=local sam local invoke --docker-network localstack_default -e s3-even
 ※ ポイント
 
 - Docker上で動くLocalStackと通信する必要があるため、`--docker-network`オプションでLocalStackが動作しているDockerネットワークを指定する。
+- `yarn run local`で実行可能
 
 展開先のS3バケットに zipファイルが展開されたことを確認する。
 
@@ -140,6 +141,10 @@ $ NODE_ENV=local sam local invoke -d 5858 --docker-network localstack_default -e
 	Debugger listening on [::]:5858 … この表示が出るまで待つ
 ```
 
+※ ポイント
+
+- `yarn run local-debug`で実行可能 
+
 #### VSCodeでデバッグ実行
 
 VSCodeのTypeScriptコードにブレイクポイントを設定後、VSCodeのデバッグ実行を行う
@@ -167,6 +172,7 @@ $ sam deploy --template-file ./package.yaml --stack-name expand-zip --capabiliti
 ※ ポイント
 
 - Lambda Functionは CloudFormation経由で作成されるため、削除する場合はCloudFormationから行う必要がある。
+- パッケージング〜デプロイまでの処理は`yarn run deploy`で実行可能
 
 
 ---
