@@ -5,7 +5,7 @@ import * as mime from 'mime-types';
 import { ObjectIdentifier } from 'aws-sdk/clients/s3';
 import * as _ from 'underscore';
 
-const DEST_BUCKET = 'cdn.jozuo.work';
+const DEST_BUCKET = (process.env.DEST_BUCKET) ? process.env.DEST_BUCKET : '';
 const BULK_SIZE = 1000;
 
 const S3_CONFIG: AWS.S3.Types.ClientConfiguration = {
