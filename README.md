@@ -142,7 +142,7 @@ $ NODE_ENV=local sam local invoke -d 5858 --docker-network localstack_default -e
 
 #### VSCodeでデバッグ実行
 
-VSCodeのTypeScriptコードにブレイクポイントを設定語、VSCodeのデバッグ実行を行う
+VSCodeのTypeScriptコードにブレイクポイントを設定後、VSCodeのデバッグ実行を行う
 
 
 ## デプロイ
